@@ -1,14 +1,27 @@
-const os = require('os')
-//info about the current user
-const user = os.userInfo();
-console.log(user);
-// method returns the systems uptime in seconds
-console.log(`the system uptime is ${os.uptime( )}`)
 
-const currentOs = {
-    name: os.type(),
-    release: os.release(),
-    totalMem: os.totalmem(),
-    freeMem: os.freemem()
-}
-console.log(currentOs);
+// const { log } = require('console');
+const {readFile,writeFile} = require('fs');
+  readFile('./content/firstcontent.txt','utf8' ,(err,result) =>{
+    if(err){
+        console.log(err);
+        return;
+    }
+    const first = result;
+    readFile('./content/secondcontent.txt', 'utf8',(err, result)=>{
+        if(err){
+            console.log(err);
+            return;
+        }
+        const second = result;
+        writeFile('./content/result-async.txt', `here is the result : ${first} ,${second}`,
+        {flag: 'a'}, (err, result) => {
+            if(err){
+                console.log(err);
+                return;
+            }
+            console.log(result)
+        })
+    })
+  })
+
+
